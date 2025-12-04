@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 from modules import normal as n
+from modules import train as t
 
 ruta = Path("data")
 
@@ -33,5 +34,5 @@ print("\nLet me do my Magic!")
 df, encoders = n.procesar_categoricas(df)
 normalized_df, scaler = n.normalize_dataset(df, archivo_nombre)
 
-print(df.head)
+t.entrenar_logistic_regression(df, archivo_nombre)
 
