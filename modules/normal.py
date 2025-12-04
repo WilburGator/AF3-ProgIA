@@ -19,7 +19,6 @@ def normalize_dataset(df, dataset_name):
         print("Datos normalizados y scaler cargados correctamente.")
         return df_norm, scaler
 
-    # Crear carpetas si no existen
     os.makedirs("normalized_data", exist_ok=True)
     os.makedirs(ver_ruta, exist_ok=True)
 
@@ -28,15 +27,12 @@ def normalize_dataset(df, dataset_name):
     if len(numeric_cols) == 0:
         raise ValueError("No numeric columns found to normalize.")
 
-    # 2. Crear y ajustar el scaler
     scaler = MinMaxScaler()
     df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
 
-    # 3. Guardar el scaler con el nombre del dataset
     scaler_filename = f"normalized_data/{dataset_name}/scaler.pkl"
     joblib.dump(scaler, scaler_filename)
 
-    # 4. Guardar el dataset normalizado
     normalized_filename = f"normalized_data/{dataset_name}/dataset.csv"
     df.to_csv(normalized_filename, index=False)
 

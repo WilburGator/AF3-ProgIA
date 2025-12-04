@@ -34,5 +34,5 @@ print("\nLet me do my Magic!")
 df, encoders = n.procesar_categoricas(df)
 normalized_df, scaler = n.normalize_dataset(df, archivo_nombre)
 
-t.entrenar_logistic_regression(df, archivo_nombre)
+t.entrenar_logistic_regression_multinomial(df, archivo_nombre)
 

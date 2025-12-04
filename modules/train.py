@@ -1,7 +1,7 @@
 from pathlib import Path
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix,classification_report
 import joblib
 import pandas as pd
 
@@ -40,6 +40,26 @@ def entrenar_logistic_regression(df, nombre_dataset):
     preds = modelo.predict(X_test)
     acc = accuracy_score(y_test, preds)
     print(f"Precisión en test: {acc:.4f}")
+
+    preds = modelo.predict(X_test)
+
+    acc = accuracy_score(y_test, preds)
+    prec = precision_score(y_test, preds, average='weighted', zero_division=0)
+    rec = recall_score(y_test, preds, average='weighted', zero_division=0)
+    f1 = f1_score(y_test, preds, average='weighted', zero_division=0)
+
+    print("\nMÉTRICAS DEL MODELO")
+    print(f"Accuracy:  {acc:.4f}")
+    print(f"Precision: {prec:.4f}")
+    print(f"Recall:    {rec:.4f}")
+    print(f"F1-score:  {f1:.4f}")
+
+    cm = confusion_matrix(y_test, preds)
+    print("\nMatriz de Confusión:")
+    print(cm)
+
+    print("\nClassification Report:")
+    print(classification_report(y_test, preds))
 
     joblib.dump(modelo, ruta_modelo)
     print(f"Modelo guardado en: {ruta_modelo}")
@@ -85,9 +105,29 @@ def entrenar_logistic_regression_multinomial(df, nombre_dataset):
 
     preds = modelo.predict(X_test)
     acc = accuracy_score(y_test, preds)
-    print(f"✔ Precisión (multinomial) en test: {acc:.4f}")
+    print(f"Precisión (multinomial) en test: {acc:.4f}")
+
+    preds = modelo.predict(X_test)
+
+    acc = accuracy_score(y_test, preds)
+    prec = precision_score(y_test, preds, average='weighted', zero_division=0)
+    rec = recall_score(y_test, preds, average='weighted', zero_division=0)
+    f1 = f1_score(y_test, preds, average='weighted', zero_division=0)
+
+    print("\nMÉTRICAS DEL MODELO")
+    print(f"Accuracy:  {acc:.4f}")
+    print(f"Precision: {prec:.4f}")
+    print(f"Recall:    {rec:.4f}")
+    print(f"F1-score:  {f1:.4f}")
+
+    cm = confusion_matrix(y_test, preds)
+    print("\nMatriz de Confusión:")
+    print(cm)
+
+    print("\nClassification Report:")
+    print(classification_report(y_test, preds))
+
 
     joblib.dump(modelo, ruta_modelo)
-    print(f"✔ Modelo multinomial guardado en: {ruta_modelo}")
-
+    print(f"Modelo multinomial guardado en: {ruta_modelo}")
     return modelo
