@@ -87,17 +87,16 @@ def entrenar_logistic_regression_multinomial(df, nombre_dataset):
     ruta_modelo = carpeta_modelos / f"{base}_logreg_multinomial.pkl"
 
     if ruta_modelo.exists():
-        print("✔ Modelo multinomial ya existente. Cargando modelo entrenado.")
+        print("Modelo multinomial ya existente. Cargando modelo entrenado.")
         modelo = joblib.load(ruta_modelo)
         return modelo
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, random_state=32
+        X, y, test_size=0.3, random_state=42
     )
 
     print("\nEntrenando modelo Logistic Regression (multinomial).")
     modelo = LogisticRegression(
-        multi_class="multinomial",
         solver="lbfgs",
         max_iter=300
     )
